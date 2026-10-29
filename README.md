@@ -24,7 +24,7 @@ no key, no indexer, no server.
 
 | | |
 |---|---|
-| Site | [injective-argus.vercel.app](https://injective-argus.vercel.app) |
+| Site | [injective-argus.vercel.app](https://injective-argus.vercel.app) — live proof runs in your browser |
 | `ArgusMandate` | [`0x777B7A41F36eCd8703cC09C2cfd42de4Bd90Dc83`](https://testnet.blockscout.injective.network/address/0x777B7A41F36eCd8703cC09C2cfd42de4Bd90Dc83) |
 | Injective account | `inj1waah5s0ndmxcwq7vp8pvl4pduj7ephyrppqcek` |
 | Chain | Injective EVM testnet, chain id `1439` |
@@ -130,8 +130,10 @@ test/
   ArgusMandate.t.sol    33 tests — the full refusal matrix, plus fuzz
   Bech32.t.sol           2 tests — against independent bech32 vectors
   live/InjectiveLive.t.sol  8 tests — real prices, pulled from the node mid-test
-site/
-  index.html            the landing page, deployed at injective-argus.vercel.app
+web/
+  app/page.tsx          the landing page
+  app/proof/page.tsx    live proof — calls the deployed contract from the browser
+  lib/chain.ts          addresses, ABI, and the published demo mandate
 agent/
   src/injective.ts      market + oracle discovery via @injectivelabs/ainj
   src/mandate.ts        builds and signs the EIP-712 mandate

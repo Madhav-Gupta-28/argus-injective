@@ -1,0 +1,187 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Type: alias the app's font roles onto Geist (set on <html> in layout.tsx).
+   Display + body share the Geist grotesk (hierarchy comes from weight/tracking);
+   Geist Mono owns every number + label. */
+:root {
+  --font-display: var(--font-bricolage), system-ui, sans-serif;
+  --font-sans: var(--font-bricolage), system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+}
+
+/* ---- Light theme (default) — "calm instrument": cool white, cool ink, refined
+   emerald as the only brand hue; green/amber/red reserved for genuine risk. ---- */
+:root,
+:root[data-theme="light"] {
+  color-scheme: light;
+  --argus-bg: 249 251 249;      /* Tally off-white — a whisper of green, never beige/blue */
+  --argus-tint: 237 244 239;    /* soft green section band (alternates with white) */
+  --argus-panel: 255 255 255;
+  --argus-card: 255 255 255;
+  --argus-ink: 9 13 10;         /* near-black, faint green bias (Tally-black) */
+  --argus-dim: 92 106 98;
+  --argus-faint: 150 164 155;
+  --argus-accent: 22 163 74;    /* Tally grass-green #16a34a — brand energy */
+  --argus-accentBright: 34 197 94;
+  --argus-green: 22 163 74;     /* risk: safe */
+  --argus-amber: 217 119 6;     /* risk: watch */
+  --argus-red: 223 52 47;       /* risk: danger */
+  --argus-inj: 0 130 250;       /* Injective blue — chain chrome only */
+  --argus-line: rgba(9, 13, 10, 0.09);
+  --wash-a: rgba(22, 163, 74, 0.06);
+  --wash-b: rgba(9, 13, 10, 0.02);
+}
+
+/* ---- Dark theme — a calm near-black instrument (same care, not a naive invert) ---- */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --argus-bg: 8 12 10;
+  --argus-tint: 13 20 16;       /* faint green band on dark */
+  --argus-panel: 16 23 19;
+  --argus-card: 16 23 19;
+  --argus-ink: 233 239 235;
+  --argus-dim: 138 154 147;
+  --argus-faint: 93 107 101;
+  --argus-accent: 34 197 94;    /* brighter grass-green on dark */
+  --argus-accentBright: 74 222 128;
+  --argus-green: 52 211 153;
+  --argus-amber: 234 179 8;
+  --argus-red: 244 96 88;
+  --argus-inj: 56 160 255;      /* Injective blue, lifted for dark */
+  --argus-line: rgba(255, 255, 255, 0.09);
+  --wash-a: rgba(34, 197, 94, 0.08);
+  --wash-b: rgba(255, 255, 255, 0.025);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html,
+body {
+  background: rgb(var(--argus-bg));
+  color: rgb(var(--argus-ink));
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(1100px 520px at 80% -10%, var(--wash-a), transparent 60%),
+    radial-gradient(800px 480px at -5% 8%, var(--wash-b), transparent 55%);
+}
+
+/* Display headings render in Geist as a confident, engineered grotesk — tight
+   tracking + real weight give them the presence the old serif got from its shapes. */
+.font-display {
+  font-weight: 660;
+  letter-spacing: -0.03em;
+}
+
+@layer components {
+  .top-rule {
+    height: 3px;
+    background: linear-gradient(
+      90deg,
+      rgb(var(--argus-accent)),
+      rgb(var(--argus-accentBright)) 45%,
+      rgb(var(--argus-accent))
+    );
+  }
+
+  .label {
+    @apply font-mono text-[11px] uppercase tracking-label text-argus-faint;
+  }
+
+  .panel {
+    @apply rounded-2xl border border-argus-line bg-argus-card shadow-card;
+  }
+
+  .panel-hover {
+    @apply transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lift;
+  }
+
+  .stat-num {
+    @apply font-mono tabular-nums;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-argus-accent px-5 py-3 font-sans text-sm font-semibold text-white shadow-card transition-all duration-150 hover:bg-argus-accentBright active:scale-[0.98] disabled:opacity-50;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl border border-argus-line bg-argus-card px-5 py-3 font-sans text-sm font-semibold text-argus-ink shadow-card transition-all duration-150 hover:border-argus-ink/25 active:scale-[0.98];
+  }
+
+  .link-quiet {
+    @apply text-argus-dim transition-colors hover:text-argus-ink;
+  }
+
+  /* Scroll-reveal */
+  .reveal {
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1), transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform;
+  }
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(128, 128, 128, 0.25);
+  outline: none;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  background: rgb(var(--argus-accent));
+  border: 3px solid rgb(var(--argus-card));
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  transition: transform 0.12s ease;
+}
+input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.12);
+}
+input[type="range"]::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  background: rgb(var(--argus-accent));
+  border: 3px solid rgb(var(--argus-card));
+  cursor: pointer;
+}
+
+::selection {
+  background: rgb(var(--argus-accent) / 0.2);
+}
+
+::-webkit-scrollbar {
+  width: 11px;
+  height: 11px;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(128, 128, 128, 0.32);
+  border-radius: 999px;
+  background-clip: padding-box;
+  border: 3px solid transparent;
+}
