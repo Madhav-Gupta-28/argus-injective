@@ -14,6 +14,10 @@ price outside the oracle band, or execute at all while the oracle is stale.
 Every refusal is a typed revert, so anyone can reproduce one with `eth_call` —
 no key, no indexer, no server.
 
+![Argus refusing orders on Injective testnet](media/argus-injective-demo.gif)
+
+*Unedited run against Injective EVM testnet. Full video: [`media/argus-injective-demo.mp4`](media/argus-injective-demo.mp4).*
+
 ---
 
 ## Live on Injective EVM testnet
