@@ -1,0 +1,22 @@
+# foundry
+out/
+cache/
+broadcast/*/*/dry-run/
+
+# node
+node_modules/
+dist/
+
+# secrets — never commit
+.env
+.env.*
+!.env.example
+*.key
+keystore/
+
+# local deployment note
+.deployed
+
+# os
+.DS_Store
+broadcast/*/*/run-[0-9]*.json
