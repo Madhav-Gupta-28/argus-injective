@@ -20,3 +20,6 @@ keystore/
 # os
 .DS_Store
 broadcast/*/*/run-[0-9]*.json
+
+# vercel
+.vercel
